@@ -1,5 +1,6 @@
 package com.test.myapplication.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,7 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainViewHolder>() {
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val data = listData[position]
         holder.binding.tvTitle.text = data.author
+        holder.binding.tvDesc.text = "Description"
 
         Glide.with(holder.itemView.context).load(data.download_url).
         apply( RequestOptions().override(200, 200)).
@@ -52,7 +54,7 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainViewHolder>() {
     inner class MainViewHolder(val binding: AdapterListBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         init {
-            binding.root.setOnClickListener { this}
+            binding.root.setOnClickListener(this)
         }
 
         override fun onClick(p0: View?) {

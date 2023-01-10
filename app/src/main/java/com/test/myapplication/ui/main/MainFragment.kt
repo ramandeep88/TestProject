@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -55,7 +56,7 @@ class MainFragment : Fragment() {
         binding.rvList.adapter = adapter
         adapter.setOnClickListener(object : ListClickListener{
             override fun onListClick(data: DataList) {
-               Toast.makeText(requireActivity(),data.author, Toast.LENGTH_SHORT).show()
+                showDialog(data)
             }
         })
 
@@ -83,6 +84,25 @@ class MainFragment : Fragment() {
             binding.swipeRefreshLayout.isRefreshing = false
         })
     }
+
+    private fun showDialog(data: DataList){
+        val builder = AlertDialog.Builder(requireActivity())
+        //set title for alert dialog
+        builder.setTitle(data.author)
+        //set message for alert dialog
+        builder.setMessage("Description")
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+        //performing positive action
+        builder.setPositiveButton("Ok"){ _, _ ->
+        }
+        // Create the AlertDialog
+        val alertDialog: AlertDialog = builder.create()
+        // Set other dialog properties
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+
 
     private fun addPagination(layoutManager:LinearLayoutManager ){
         binding.rvList.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
