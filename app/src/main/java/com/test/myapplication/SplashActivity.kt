@@ -13,6 +13,8 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        supportActionBar?.hide()
+
         Handler(Looper.getMainLooper()).postDelayed(Runnable {
             // This method will be executed once the timer is over
             val i = Intent(this@SplashActivity, MainActivity::class.java)

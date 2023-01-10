@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.myapplication.PaginationScrollListener
 import com.test.myapplication.adapter.MainListAdapter
 import com.test.myapplication.databinding.FragmentMainBinding
+import com.test.myapplication.listener.ListClickListener
 import com.test.myapplication.model.DataList
 
 
@@ -51,6 +53,11 @@ class MainFragment : Fragment() {
         viewModel.getDataList(page)
 
         binding.rvList.adapter = adapter
+        adapter.setOnClickListener(object : ListClickListener{
+            override fun onListClick(data: DataList) {
+               Toast.makeText(requireActivity(),data.author, Toast.LENGTH_SHORT).show()
+            }
+        })
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             page = 1
